@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Hellix';
+  src: url('/fonts/HellixTRIAL-Regular.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hellix-Medium';
+  src: url('/fonts/HellixTRIAL-Medium.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hellix-Bold';
+  src: url('/fonts/HellixTRIAL-Bold.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hellix-SemiBold';
+  src: url('/fonts/HellixTRIAL-SemiBold.otf') format('opentype');
+  font-display: swap;
+}
+
+@layer base {
+  h1 {
+    @apply text-4xl text-black-300 dark:text-grey-100 font-sansbold mb-4;
+  }
+  h2 {
+    @apply text-3xl text-black-200 dark:text-grey-200 font-sanssemibold mb-1;
+  }
+  h3 {
+    @apply text-2xl text-black-100 dark:text-grey-200 font-sanssemibold mb-1;
+  }
+  a {
+    @apply text-green-200 hover:text-green-200 text-xl font-sansmed;
+  }
+  p {
+    @apply text-grey-400 dark:text-grey-200 text-xl leading-9 font-sans mb-4;
+  }
+}
+
+@layer utilities {
+  @variants responsive {
+    /* Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
+}
+
+html.dark body {
+  background: #14161b;
+}
+
+html.light body {
+  background: #fff;
+}
+
+a {
+  text-decoration: none;
+}
+
+#editor {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.uk-navbar-container {
+  background: #fff !important;
+  font-family: Staatliches;
+}
+
+img:hover {
+  opacity: 1;
+  transition: opacity 0.25s cubic-bezier(0.39, 0.575, 0.565, 1);
+}

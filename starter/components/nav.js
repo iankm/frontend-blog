@@ -1,34 +1,65 @@
-import React from "react"
+import React, { useContext } from "react"
 import Link from "next/link"
+import Image from "../components/image"
+import { GlobalContext } from "../pages/_app"
+import { FiSun, FiMoon } from "react-icons/fi"
+import { useTheme } from "next-themes"
 
-const Nav = ({ categories }) => {
+const Nav = () => {
+  const { navLogo } = useContext(GlobalContext)
+  const { theme, setTheme } = useTheme()
+
+  const renderThemeToggle = () => {
+    return (
+      <span
+        aria-label="Toggle Dark Mode"
+        className="group hidden md:block cursor-pointer px-2 py-2 rounded-full"
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      >
+        {theme === "dark" ? (
+          <FiMoon size={24} className="text-white group-hover:text-green-200" />
+        ) : (
+          <FiSun
+            size={24}
+            className="text-grey-300 group-hover:text-green-200"
+          />
+        )}
+      </span>
+    )
+  }
+
   return (
-    <div>
-      <nav className="uk-navbar-container" data-uk-navbar>
-        <div className="uk-navbar-left">
-          <ul className="uk-navbar-nav">
-            <li>
-              <Link href="/">
-                <a>Strapi Blog</a>
-              </Link>
-            </li>
-          </ul>
+    <nav className="sticky top-0 z-50 flex items-center justify-between flex-wrap bg-white dark:bg-black-200 border-b border-grey-600 dark:border-black-300 py-3 px-3 md:px-32">
+      <Link href="/" passHref={true}>
+        <div className="flex items-center flex-shrink-0 text-white w-28 h-8 cursor-pointer">
+          <Image
+            image={navLogo}
+            width={162}
+            height={50}
+            alt="Parcel Logo Lockup"
+          />
         </div>
-        <div className="uk-navbar-right">
-          <ul className="uk-navbar-nav">
-            {categories.map((category) => {
-              return (
-                <li key={category.id}>
-                  <Link as={`/category/${category.slug}`} href="/category/[id]">
-                    <a className="uk-link-reset">{category.name}</a>
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-      </nav>
-    </div>
+      </Link>
+      <div className="flex lg:w-auto space-x-2 md:space-x-3 items-center">
+        {renderThemeToggle()}
+        <a
+          href="https://discord.gg/7qUaAQf2Hs"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-3 rounded-md hover:shadow-none hover:text-green-200 hover:no-underline text-green-100 text-base md:text-base font-semibold hover:shadow-sm transition"
+        >
+          Join our chat
+        </a>
+        <a
+          href="https://meetparcel.com/explorer"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-3 rounded-md bg-green-100 hover:bg-green-200 hover:shadow-none hover:text-white hover:no-underline text-white text-base md:text-base font-semibold hover:shadow-smdarkgreen transition"
+        >
+          Launch App
+        </a>
+      </div>
+    </nav>
   )
 }
 

@@ -4,14 +4,30 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { fetchAPI } from "../lib/api"
 
-const Home = ({ articles, categories, homepage }) => {
+const Home = ({ categories, homepage }) => {
   return (
     <Layout categories={categories}>
       <Seo seo={homepage.seo} />
-      <div className="uk-section">
-        <div className="uk-container uk-container-large">
-          <h1>{homepage.hero.title}</h1>
-          <Articles articles={articles} />
+      <div className="w-10/12 mx-auto">
+        <div className="flex flex-col py-12 md:py-24 items-center mx-auto">
+          <div className="font-sansbold text-5xl text-black-300 dark:text-white mb-4">
+            {homepage.hero.title}
+          </div>
+          <div className="font-sans text-lg text-grey-400 dark:text-grey-200">
+            {homepage.hero.description}
+          </div>
+        </div>
+        <div className="divide-y divide-grey-100 dark:divide-black-100">
+          <Articles
+            category={categories.find(
+              (category) => category.slug === "featured"
+            )}
+          />
+          {categories.map((category) => {
+            if (category.slug !== "featured" && category.articles.length) {
+              return <Articles category={category} />
+            }
+          })}
         </div>
       </div>
     </Layout>
