@@ -18,11 +18,13 @@ const Home = ({ categories, homepage }) => {
           </div>
         </div>
         <div className="divide-y divide-grey-100 dark:divide-black-100">
-          <Articles
-            category={categories.find(
-              (category) => category.slug === "featured"
-            )}
-          />
+          {categories.find((category) => category.slug === "featured") ? (
+            <Articles
+              category={categories.find(
+                (category) => category.slug === "featured"
+              )}
+            />
+          ) : null}
           {categories.map((category) => {
             if (category.slug !== "featured" && category.articles.length) {
               return <Articles category={category} />
@@ -34,7 +36,7 @@ const Home = ({ categories, homepage }) => {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   // Run API calls in parallel
   const [articles, categories, homepage] = await Promise.all([
     fetchAPI("/articles"),
