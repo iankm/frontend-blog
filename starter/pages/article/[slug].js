@@ -18,8 +18,8 @@ import {
 
 const Article = ({ article, categories }) => {
   const breadcrumbs = [
-    { name: "Parcelpedia", slug: "/" },
-    { name: `${article.category.name}`, slug: `/article/${article.slug}` },
+    { name: "Learn", slug: "/" },
+    { name: `${article.title}`, slug: `/article/${article.slug}` },
   ]
 
   const seo = {
@@ -64,12 +64,7 @@ const Article = ({ article, categories }) => {
                 )}
               </div>
               <div className="object-contain overflow-hidden rounded-md aspect-w-16 aspect-h-9">
-                <Image
-                  id="banner"
-                  image={article.image}
-                  width="100%"
-                  height="100%"
-                />
+                <Image id="banner" image={article.image} />
               </div>
             </div>
             <div className="mb-8 divide-y-0 divide-grey-600">
@@ -111,7 +106,7 @@ const Article = ({ article, categories }) => {
   )
 }
 
-export async function getStaticPaths() {
+export async function getServerSidePaths() {
   const articles = await fetchAPI("/articles")
 
   return {
@@ -124,13 +119,12 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const articles = await fetchAPI(`/articles?slug=${params.slug}`)
   const categories = await fetchAPI("/categories")
 
   return {
     props: { article: articles[0], categories },
-    revalidate: 1,
   }
 }
 

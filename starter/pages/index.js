@@ -46,7 +46,6 @@ export async function getServerSideProps() {
 
   return {
     props: { articles, categories, homepage },
-    revalidate: 1,
   }
 }
 
